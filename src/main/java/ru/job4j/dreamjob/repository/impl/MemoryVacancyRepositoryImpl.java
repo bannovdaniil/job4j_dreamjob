@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.repository.impl;
 
+import org.springframework.stereotype.Repository;
 import ru.job4j.dreamjob.model.Vacancy;
 import ru.job4j.dreamjob.repository.VacancyRepository;
 
@@ -9,8 +10,11 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+/**
+ * In memory репозиторий вакансий.
+ */
+@Repository
 public class MemoryVacancyRepositoryImpl implements VacancyRepository {
-
     private static final MemoryVacancyRepositoryImpl INSTANCE = new MemoryVacancyRepositoryImpl();
     private int nextId = 1;
     private final Map<Integer, Vacancy> vacancies = new HashMap<>();
@@ -36,7 +40,7 @@ public class MemoryVacancyRepositoryImpl implements VacancyRepository {
     }
 
     @Override
-    public void deleteById(int id) {
+    public void deleteById(Integer id) {
         vacancies.remove(id);
     }
 
@@ -53,7 +57,7 @@ public class MemoryVacancyRepositoryImpl implements VacancyRepository {
     }
 
     @Override
-    public Optional<Vacancy> findById(int id) {
+    public Optional<Vacancy> findById(Integer id) {
         return Optional.ofNullable(vacancies.get(id));
     }
 

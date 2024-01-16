@@ -10,11 +10,11 @@
     <script src="@{/js/popper.min.js"></script>
     <script src="@{/js/bootstrap.min.js}"></script>
 
-    <title>Список вакансий</title>
+    <title>Список кандидатов</title>
 </head>
 <body>
 <div class="header">
-    <h1 class="display-6 text-center">Список вакансий</h1>
+    <h1 class="display-6 text-center">Список кандидатов</h1>
 </div>
 <div class="container">
     <div class="row">
@@ -23,16 +23,16 @@
             <tr>
                 <th scope="col">#</th>
                 <th scope="col">Имя</th>
-                <th scope="col">Описание вакансии</th>
+                <th scope="col">Описание кандидата</th>
                 <th scope="col">Время добавления</th>
             </tr>
             </thead>
             <tbody>
-            <tr th:each="vacancy: ${vacancies}">
-                <th th:text="${vacancy.id}"/>
-                <td th:text="${vacancy.title}"/>
-                <td th:text="${vacancy.description}"/>
-                <td th:text="${{vacancy.creationDate}}"/>
+            <tr th:each="candidate: ${candidates}">
+                <th th:text="${candidate.id}"/>
+                <td th:text="${candidate.name}"/>
+                <td th:text="${candidate.description}"/>
+                <td th:text="${{candidate.creationDate}}"/>
             </tr>
             </tbody>
         </table>
@@ -42,5 +42,6 @@
     <br/>
     <a href="/"><-- На главную.</a>
 </div>
+
 </body>
 </html>
