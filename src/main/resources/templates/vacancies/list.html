@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="en">
+<head>
+
+    <!--  Зависимости Bootstrap-->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link th:href="@{/css/bootstrap.min.css}" rel="stylesheet">
+    <script src="@{/js/popper.min.js"></script>
+    <script src="@{/js/bootstrap.min.js}"></script>
+
+    <title>Работа мечты! - список вакансий</title>
+</head>
+<body>
+<div class="container">
+    <div class="row">
+        <table class="table">
+            <thead>
+            <tr>
+                <th scope="col">#</th>
+                <th scope="col">Имя</th>
+                <th scope="col">Описание вакансии.</th>
+                <th scope="col">Время добавления</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="vacancy: ${vacancies}">
+                <th th:text="${vacancy.id}"/>
+                <td th:text="${vacancy.title}"/>
+                <td th:text="${vacancy.description}"/>
+                <td th:text="${#temporals.format(vacancy.creationDate, 'dd-MM-yyyy / HH:mm')}"/>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+</div>
+</body>
+</html>
