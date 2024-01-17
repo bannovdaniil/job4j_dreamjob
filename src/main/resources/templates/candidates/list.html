@@ -1,8 +1,6 @@
 <!doctype html>
 <html lang="en">
 <head>
-
-    <!--  Зависимости Bootstrap-->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
 
@@ -10,38 +8,47 @@
     <script src="@{/js/popper.min.js"></script>
     <script src="@{/js/bootstrap.min.js}"></script>
 
-    <title>Список кандидатов</title>
+    <title>Кандидаты</title>
 </head>
 <body>
-<div class="header">
-    <h1 class="display-6 text-center">Список кандидатов</h1>
-</div>
-<div class="container">
-    <div class="row">
-        <table class="table">
-            <thead class="thead-light">
-            <tr>
-                <th scope="col">#</th>
-                <th scope="col">Имя</th>
-                <th scope="col">Описание кандидата</th>
-                <th scope="col">Время добавления</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="candidate: ${candidates}">
-                <th th:text="${candidate.id}"/>
-                <td th:text="${candidate.name}"/>
-                <td th:text="${candidate.description}"/>
-                <td th:text="${{candidate.creationDate}}"/>
-            </tr>
-            </tbody>
-        </table>
+<div class="container-fluid p-0">
+    <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+        <div class="container">
+            <a class="navbar-brand" href="/">Job4jDreamJob</a>
+            <div class="collapse navbar-collapse">
+                <div class="navbar-nav">
+                    <a class="nav-item nav-link" href="/">Главная</a>
+                    <a class="nav-item nav-link" th:href="@{/vacancies}">Вакансии</a>
+                    <a class="nav-item nav-link active" th:href="@{/candidates}">Кандидаты</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    <div class="container">
+        <div class="header">
+            <h3 class="display-6 text-center">Кандидаты</h3>
+        </div>
+        <div class="row">
+            <table class="table">
+                <thead class="thead-light">
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Имя</th>
+                    <th scope="col">Описание кандидата</th>
+                    <th scope="col">Время добавления</th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr th:each="candidate: ${candidates}">
+                    <th th:text="${candidate.id}"/>
+                    <td th:text="${candidate.name}"/>
+                    <td th:text="${candidate.description}"/>
+                    <td th:text="${{candidate.creationDate}}"/>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
-<div class="footer text-center">
-    <br/>
-    <a href="/"><-- На главную.</a>
-</div>
-
 </body>
 </html>
