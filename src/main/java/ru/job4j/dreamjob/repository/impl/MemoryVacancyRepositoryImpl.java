@@ -52,7 +52,7 @@ public class MemoryVacancyRepositoryImpl implements VacancyRepository {
                                 oldVacancy.getId(),
                                 vacancy.getTitle(),
                                 vacancy.getDescription(),
-                                vacancy.getCreationDate())
+                                oldVacancy.getCreationDate())
                 ) != null;
     }
 
