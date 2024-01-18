@@ -4,8 +4,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.dreamjob.model.Candidate;
-import ru.job4j.dreamjob.repository.CandidateRepository;
-import ru.job4j.dreamjob.repository.impl.MemoryCandidateRepositoryImpl;
+import ru.job4j.dreamjob.service.CandidateService;
+import ru.job4j.dreamjob.service.impl.CandidateServiceImpl;
 
 /**
  * Работать с кандидатами будем по URI /candidates/**
@@ -14,11 +14,11 @@ import ru.job4j.dreamjob.repository.impl.MemoryCandidateRepositoryImpl;
 @RequestMapping("/candidates")
 public class CandidateController {
 
-    private final CandidateRepository candidateRepository = MemoryCandidateRepositoryImpl.getInstance();
+    private final CandidateService candidateService = CandidateServiceImpl.getInstance();
 
     @GetMapping
     public String getAll(Model model) {
-        model.addAttribute("candidates", candidateRepository.findAll());
+        model.addAttribute("candidates", candidateService.findAll());
         return "candidates/list";
     }
 
@@ -29,13 +29,13 @@ public class CandidateController {
 
     @PostMapping("/create")
     public String createPost(@ModelAttribute Candidate candidate) {
-        candidateRepository.save(candidate);
+        candidateService.save(candidate);
         return "redirect:/candidates";
     }
 
     @GetMapping("/{id}")
     public String getById(Model model, @PathVariable int id) {
-        var candidateOptional = candidateRepository.findById(id);
+        var candidateOptional = candidateService.findById(id);
         if (candidateOptional.isEmpty()) {
             return sendNotFoundError(model);
         }
@@ -45,7 +45,7 @@ public class CandidateController {
 
     @PostMapping("/update")
     public String update(@ModelAttribute Candidate candidate, Model model) {
-        boolean isUpdated = candidateRepository.update(candidate);
+        boolean isUpdated = candidateService.update(candidate);
         if (!isUpdated) {
             return sendNotFoundError(model);
         }
@@ -54,7 +54,7 @@ public class CandidateController {
 
     @GetMapping("/delete/{id}")
     public String delete(Model model, @PathVariable int id) {
-        boolean isDeleted = candidateRepository.deleteById(id);
+        boolean isDeleted = candidateService.deleteById(id);
         if (!isDeleted) {
             return sendNotFoundError(model);
         }
