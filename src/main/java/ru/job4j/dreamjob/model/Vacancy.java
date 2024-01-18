@@ -9,8 +9,11 @@ import java.util.Objects;
 public class Vacancy {
     private int id;
     private String title;
-    private final String description;
-    private final LocalDateTime creationDate;
+    private String description;
+    private LocalDateTime creationDate = LocalDateTime.now();
+
+    public Vacancy() {
+    }
 
     public Vacancy(int id, String title, String description, LocalDateTime creationDate) {
         this.id = id;
@@ -41,6 +44,10 @@ public class Vacancy {
 
     public LocalDateTime getCreationDate() {
         return creationDate;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 
     @Override
