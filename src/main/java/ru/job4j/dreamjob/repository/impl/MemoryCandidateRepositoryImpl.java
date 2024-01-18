@@ -40,8 +40,8 @@ public class MemoryCandidateRepositoryImpl implements CandidateRepository {
     }
 
     @Override
-    public void deleteById(Integer id) {
-        candidates.remove(id);
+    public boolean deleteById(Integer id) {
+        return candidates.remove(id) != null;
     }
 
     @Override

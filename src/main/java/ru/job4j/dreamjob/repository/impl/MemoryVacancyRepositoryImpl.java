@@ -40,8 +40,8 @@ public class MemoryVacancyRepositoryImpl implements VacancyRepository {
     }
 
     @Override
-    public void deleteById(Integer id) {
-        vacancies.remove(id);
+    public boolean deleteById(Integer id) {
+        return vacancies.remove(id) != null;
     }
 
     @Override
