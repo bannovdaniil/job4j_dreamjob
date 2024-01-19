@@ -1,5 +1,6 @@
 package ru.job4j.dreamjob.service.impl;
 
+import net.jcip.annotations.ThreadSafe;
 import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.repository.CandidateRepository;
@@ -12,11 +13,12 @@ import java.util.Optional;
  * Бизнес логика для кандидатов.
  */
 @Service
+@ThreadSafe
 public class CandidateServiceImpl implements CandidateService {
 
     private final CandidateRepository candidateRepository;
 
-    private CandidateServiceImpl(CandidateRepository candidateRepository) {
+    public CandidateServiceImpl(CandidateRepository candidateRepository) {
         this.candidateRepository = candidateRepository;
     }
 
