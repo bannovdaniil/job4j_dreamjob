@@ -5,7 +5,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.job4j.dreamjob.model.Candidate;
 import ru.job4j.dreamjob.service.CandidateService;
-import ru.job4j.dreamjob.service.impl.CandidateServiceImpl;
 
 /**
  * Работать с кандидатами будем по URI /candidates/**
@@ -14,7 +13,16 @@ import ru.job4j.dreamjob.service.impl.CandidateServiceImpl;
 @RequestMapping("/candidates")
 public class CandidateController {
 
-    private final CandidateService candidateService = CandidateServiceImpl.getInstance();
+    private final CandidateService candidateService;
+
+    public CandidateController(CandidateService candidateService) {
+        this.candidateService = candidateService;
+    }
+
+    private static String sendNotFoundError(Model model) {
+        model.addAttribute("message", "Кандидат с указанным идентификатором не найден");
+        return "errors/404";
+    }
 
     @GetMapping
     public String getAll(Model model) {
@@ -59,10 +67,5 @@ public class CandidateController {
             return sendNotFoundError(model);
         }
         return "redirect:/candidates";
-    }
-
-    private static String sendNotFoundError(Model model) {
-        model.addAttribute("message", "Кандидат с указанным идентификатором не найден");
-        return "errors/404";
     }
 }

@@ -1,8 +1,8 @@
 package ru.job4j.dreamjob.service.impl;
 
+import org.springframework.stereotype.Service;
 import ru.job4j.dreamjob.model.Vacancy;
 import ru.job4j.dreamjob.repository.VacancyRepository;
-import ru.job4j.dreamjob.repository.impl.MemoryVacancyRepositoryImpl;
 import ru.job4j.dreamjob.service.VacancyService;
 
 import java.util.Collection;
@@ -11,17 +11,13 @@ import java.util.Optional;
 /**
  * Бизнес логика для Вакансий.
  */
+@Service
 public class VacancyServiceImpl implements VacancyService {
 
-    private static final VacancyService INSTANCE = new VacancyServiceImpl();
+    private final VacancyRepository vacancyRepository;
 
-    private final VacancyRepository vacancyRepository = MemoryVacancyRepositoryImpl.getInstance();
-
-    private VacancyServiceImpl() {
-    }
-
-    public static VacancyService getInstance() {
-        return INSTANCE;
+    private VacancyServiceImpl(VacancyRepository vacancyRepository) {
+        this.vacancyRepository = vacancyRepository;
     }
 
     @Override

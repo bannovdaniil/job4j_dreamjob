@@ -42,12 +42,12 @@ public class Vacancy {
         return description;
     }
 
-    public LocalDateTime getCreationDate() {
-        return creationDate;
-    }
-
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public LocalDateTime getCreationDate() {
+        return creationDate;
     }
 
     @Override
