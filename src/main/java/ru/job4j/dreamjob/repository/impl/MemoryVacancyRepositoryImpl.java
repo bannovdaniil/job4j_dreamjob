@@ -22,12 +22,12 @@ public class MemoryVacancyRepositoryImpl implements VacancyRepository {
     private final AtomicInteger nextId = new AtomicInteger(1);
 
     public MemoryVacancyRepositoryImpl() {
-        save(new Vacancy(0, "Intern Java Developer", "Java core", LocalDateTime.now()));
-        save(new Vacancy(0, "Junior Java Developer", "Java core, Stream API", LocalDateTime.now()));
-        save(new Vacancy(0, "Junior+ Java Developer", "Java core, Collections, Stream, OOP", LocalDateTime.now()));
-        save(new Vacancy(0, "Middle Java Developer", "Java core, SpringBoot", LocalDateTime.now()));
-        save(new Vacancy(0, "Middle+ Java Developer", "Java core, SpringBoot, Docker", LocalDateTime.now()));
-        save(new Vacancy(0, "Senior Java Developer", "Java core, Docker, Jenkins, K8s", LocalDateTime.now()));
+        save(new Vacancy(0, "Intern Java Developer", "Java core", LocalDateTime.now(), true));
+        save(new Vacancy(0, "Junior Java Developer", "Java core, Stream API", LocalDateTime.now(), true));
+        save(new Vacancy(0, "Junior+ Java Developer", "Java core, Collections, Stream, OOP", LocalDateTime.now(), true));
+        save(new Vacancy(0, "Middle Java Developer", "Java core, SpringBoot", LocalDateTime.now(), true));
+        save(new Vacancy(0, "Middle+ Java Developer", "Java core, SpringBoot, Docker", LocalDateTime.now(), true));
+        save(new Vacancy(0, "Senior Java Developer", "Java core, Docker, Jenkins, K8s", LocalDateTime.now(), false));
     }
 
     @Override
@@ -50,7 +50,8 @@ public class MemoryVacancyRepositoryImpl implements VacancyRepository {
                                 oldVacancy.getId(),
                                 vacancy.getTitle(),
                                 vacancy.getDescription(),
-                                oldVacancy.getCreationDate())
+                                oldVacancy.getCreationDate(),
+                                vacancy.getVisible())
                 ) != null;
     }
 
