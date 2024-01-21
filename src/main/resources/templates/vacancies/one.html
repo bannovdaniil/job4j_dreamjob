@@ -15,8 +15,14 @@
                        placeholder="Предлагая должность, например, Ведущий Java разработчик">
             </div>
             <div class="mb-3">
+                <label for="city"><b>Город</b></label>
+                <select class="form-control" id="city" name="cityId">
+                    <option th:each="city : ${cities}" th:value="${city.id}" th:text="${city.name}"></option>
+                </select>
+            </div>
+            <div class="mb-3">
                 <label for="description" class="form-label"><b>Описание</b></label>
-                <textarea class="form-control" id="description" name="description" th:field="*{description}" rows="25"
+                <textarea class="form-control" id="description" name="description" th:field="*{description}" rows="10"
                           placeholder="Опишите требования к кандидату"></textarea>
             </div>
             <div class="form-check mb-3 text-right">
