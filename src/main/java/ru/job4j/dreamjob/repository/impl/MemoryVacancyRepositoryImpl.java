@@ -22,12 +22,12 @@ public class MemoryVacancyRepositoryImpl implements VacancyRepository {
     private final AtomicInteger nextId = new AtomicInteger(1);
 
     public MemoryVacancyRepositoryImpl() {
-        save(new Vacancy(0, "Intern Java Developer", "Java core", LocalDateTime.now(), true, 1));
-        save(new Vacancy(0, "Junior Java Developer", "Java core, Stream API", LocalDateTime.now(), true, 2));
-        save(new Vacancy(0, "Junior+ Java Developer", "Java core, Collections, Stream, OOP", LocalDateTime.now(), true, 3));
-        save(new Vacancy(0, "Middle Java Developer", "Java core, SpringBoot", LocalDateTime.now(), true, 1));
-        save(new Vacancy(0, "Middle+ Java Developer", "Java core, SpringBoot, Docker", LocalDateTime.now(), true, 2));
-        save(new Vacancy(0, "Senior Java Developer", "Java core, Docker, Jenkins, K8s", LocalDateTime.now(), false, 3));
+        save(new Vacancy(0, "Intern Java Developer", "Java core", LocalDateTime.now(), true, 1, 0));
+        save(new Vacancy(0, "Junior Java Developer", "Java core, Stream API", LocalDateTime.now(), true, 2, 0));
+        save(new Vacancy(0, "Junior+ Java Developer", "Java core, Collections, Stream, OOP", LocalDateTime.now(), true, 3, 0));
+        save(new Vacancy(0, "Middle Java Developer", "Java core, SpringBoot", LocalDateTime.now(), true, 1, 0));
+        save(new Vacancy(0, "Middle+ Java Developer", "Java core, SpringBoot, Docker", LocalDateTime.now(), true, 2, 0));
+        save(new Vacancy(0, "Senior Java Developer", "Java core, Docker, Jenkins, K8s", LocalDateTime.now(), false, 3, 0));
     }
 
     @Override
@@ -52,7 +52,8 @@ public class MemoryVacancyRepositoryImpl implements VacancyRepository {
                                 vacancy.getDescription(),
                                 oldVacancy.getCreationDate(),
                                 vacancy.getVisible(),
-                                vacancy.getCityId()
+                                vacancy.getCityId(),
+                                vacancy.getFileId()
                         )
                 ) != null;
     }
