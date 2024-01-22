@@ -16,8 +16,8 @@ import java.util.Collection;
 public class CityServiceImpl implements CityService {
     private final CityRepository cityRepository;
 
-    public CityServiceImpl(CityRepository cityRepository) {
-        this.cityRepository = cityRepository;
+    public CityServiceImpl(CityRepository sql2oCityRepositoryImpl) {
+        this.cityRepository = sql2oCityRepositoryImpl;
     }
 
     @Override

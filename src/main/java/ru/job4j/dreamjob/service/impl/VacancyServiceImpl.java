@@ -22,8 +22,8 @@ public class VacancyServiceImpl implements VacancyService {
     private final VacancyRepository vacancyRepository;
     private final FileService fileService;
 
-    public VacancyServiceImpl(VacancyRepository vacancyRepository, FileService fileService) {
-        this.vacancyRepository = vacancyRepository;
+    public VacancyServiceImpl(VacancyRepository sql2oVacancyRepositoryImpl, FileService fileService) {
+        this.vacancyRepository = sql2oVacancyRepositoryImpl;
         this.fileService = fileService;
     }
 

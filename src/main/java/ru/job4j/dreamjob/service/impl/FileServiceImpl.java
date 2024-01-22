@@ -19,8 +19,8 @@ public class FileServiceImpl implements FileService {
     private final FileRepository fileRepository;
     private final String storageDirectory;
 
-    public FileServiceImpl(FileRepository fileRepository, @Value("${file.directory}") String storageDirectory) {
-        this.fileRepository = fileRepository;
+    public FileServiceImpl(FileRepository sql2oFileRepositoryImpl, @Value("${file.directory}") String storageDirectory) {
+        this.fileRepository = sql2oFileRepositoryImpl;
         this.storageDirectory = storageDirectory;
         createStorageDirectory(storageDirectory);
     }
