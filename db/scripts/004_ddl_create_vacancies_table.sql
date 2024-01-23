@@ -1,3 +1,5 @@
+-- liquibase formatted sql
+-- changeset liquibase:004
 create table vacancies
 (
     id            serial primary key,

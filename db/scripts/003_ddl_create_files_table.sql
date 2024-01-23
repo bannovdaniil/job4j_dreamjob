@@ -1,3 +1,5 @@
+-- liquibase formatted sql
+-- changeset liquibase:003
 create table files
 (
     id   serial primary key,
