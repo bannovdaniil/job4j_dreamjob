@@ -32,12 +32,12 @@ public class Sql2oVacancyRepositoryImplTest {
     @BeforeAll
     public static void initRepositories() throws Exception {
         var properties = new Properties();
-        try (var inputStream = Sql2oVacancyRepositoryImplTest.class.getClassLoader().getResourceAsStream("connection.properties")) {
+        try (var inputStream = Sql2oVacancyRepositoryImpl.class.getClassLoader().getResourceAsStream("db/liquibase_test.properties")) {
             properties.load(inputStream);
         }
-        var url = properties.getProperty("datasource.url");
-        var username = properties.getProperty("datasource.username");
-        var password = properties.getProperty("datasource.password");
+        var url = properties.getProperty("url");
+        var username = properties.getProperty("username");
+        var password = properties.getProperty("password");
 
         var configuration = new DatasourceConfiguration();
         var datasource = configuration.connectionPool(url, username, password);

@@ -6,3 +6,4 @@ create table files
     name varchar not null,
     path varchar not null unique
 );
+-- rollback DROP TABLE files;

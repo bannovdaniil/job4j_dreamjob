@@ -7,3 +7,4 @@ CREATE TABLE candidates
     description   VARCHAR NOT NULL,
     creation_date TIMESTAMP
 );
+-- rollback DROP TABLE candidates;

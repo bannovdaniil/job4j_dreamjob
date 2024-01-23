@@ -10,3 +10,4 @@ create table vacancies
     city_id       int references cities(id),
     file_id       int references files(id)
 );
+-- rollback DROP TABLE vacancies;
