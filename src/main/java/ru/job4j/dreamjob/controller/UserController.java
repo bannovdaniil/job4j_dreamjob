@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.UserService;
-import ru.job4j.dreamjob.utils.UserSession;
 
 /**
  * Работать с Пользователями будем по URI /users/**
@@ -28,8 +27,7 @@ public class UserController {
     }
 
     @GetMapping("/login")
-    public String getLoginPage(Model model, HttpSession session) {
-        UserSession.setUserFromSession(model, session);
+    public String getLoginPage() {
         return "users/login";
     }
 

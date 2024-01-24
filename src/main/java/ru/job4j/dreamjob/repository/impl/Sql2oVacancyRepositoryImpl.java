@@ -53,7 +53,7 @@ public class Sql2oVacancyRepositoryImpl implements VacancyRepository {
         try (var connection = sql2o.open()) {
             var sql = """
                     UPDATE vacancies
-                    SET title = :title, description = :description, 
+                    SET title = :title, description = :description,
                         visible = :visible, city_id = :cityId, file_id = :fileId
                     WHERE id = :id
                     """;

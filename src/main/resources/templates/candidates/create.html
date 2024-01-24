@@ -1,11 +1,11 @@
 <!doctype html>
 <html lang="en">
-<head th:replace="blocks/base_head :: baseHead(~{::title})">
+<head th:replace="~{blocks/base_head :: baseHead(~{::title})}">
     <title>Создание резюме</title>
 </head>
 <body>
 <div class="container-fluid p-0">
-    <header th:insert="blocks/header :: header"></header>
+    <header th:insert="~{blocks/header :: header}"></header>
     <div class="container">
         <form class="mt-3" th:action="@{/candidates/create}" method="post" th:object="${candidate}">
             <div class="mb-3">
@@ -31,7 +31,7 @@
             </div>
         </form>
     </div>
-    <footer th:insert="blocks/footer :: footer"></footer>
+    <footer th:insert="~{blocks/footer :: footer}"></footer>
 </div>
 </body>
 </html>

@@ -2,7 +2,7 @@ package ru.job4j.dreamjob.dto;
 
 public class FileDto {
     private String name;
-    private byte[] content; /* тут кроется различие. доменная модель хранит путь, а не содержимое */
+    private byte[] content; /* Тут кроется различие. Доменная модель хранит путь, а не содержимое */
 
     public FileDto(String name, byte[] content) {
         this.name = name;
