@@ -1,5 +1,7 @@
 package ru.job4j.dreamjob.repository.impl;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Repository;
 import org.sql2o.Sql2o;
 import ru.job4j.dreamjob.model.User;
@@ -10,6 +12,7 @@ import java.util.Optional;
 
 @Repository
 public class Sql2oUserRepositoryImpl implements UserRepository {
+    private final Logger log = LoggerFactory.getLogger(Sql2oUserRepositoryImpl.class);
     private final Sql2o sql2o;
 
     public Sql2oUserRepositoryImpl(Sql2o sql2o) {
@@ -18,7 +21,6 @@ public class Sql2oUserRepositoryImpl implements UserRepository {
 
     @Override
     public Optional<User> save(User user) {
-        int generatedId;
         try (var connection = sql2o.open()) {
             var sql = """
                     INSERT INTO users(email, name, password)
@@ -28,14 +30,11 @@ public class Sql2oUserRepositoryImpl implements UserRepository {
                     .addParameter("email", user.getEmail())
                     .addParameter("name", user.getName())
                     .addParameter("password", user.getPassword());
-            generatedId = query.executeUpdate().getKey(Integer.class);
+            int generatedId = query.executeUpdate().getKey(Integer.class);
             user.setId(generatedId);
-        } catch (Exception e) {
-            return Optional.empty();
-        }
-        if (generatedId != 0 && user.getId() == generatedId) {
             return Optional.of(user);
-        } else {
+        } catch (Exception e) {
+            log.error("User save error: {}", e.getMessage());
             return Optional.empty();
         }
     }
@@ -44,7 +43,7 @@ public class Sql2oUserRepositoryImpl implements UserRepository {
     public Optional<User> findByEmailAndPassword(String email, String password) {
         try (var connection = sql2o.open()) {
             String sql = """
-                       SELECT * FROM users 
+                       SELECT * FROM users
                         WHERE email = :email AND password = :password;
                     """;
             var query = connection.createQuery(sql);
