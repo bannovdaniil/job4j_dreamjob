@@ -35,8 +35,8 @@ public class Sql2oUserRepositoryImpl implements UserRepository {
             return Optional.of(user);
         } catch (Exception e) {
             log.error("User save error: {}", e.getMessage());
-            return Optional.empty();
         }
+        return Optional.empty();
     }
 
     @Override
