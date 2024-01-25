@@ -5,7 +5,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import ru.job4j.dreamjob.dto.FileDto;
 import ru.job4j.dreamjob.service.FileService;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/files")
@@ -18,7 +21,7 @@ public class FileController {
 
     @GetMapping("/{id}")
     public ResponseEntity<?> getById(@PathVariable int id) {
-        var contentOptional = fileService.getFileById(id);
+        Optional<FileDto> contentOptional = fileService.getFileById(id);
         if (contentOptional.isEmpty()) {
             return ResponseEntity.notFound().build();
         }

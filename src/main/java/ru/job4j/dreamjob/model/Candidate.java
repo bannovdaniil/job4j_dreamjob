@@ -1,5 +1,7 @@
 package ru.job4j.dreamjob.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
+
 import java.time.LocalDateTime;
 import java.util.Map;
 import java.util.Objects;
@@ -17,6 +19,7 @@ public class Candidate {
     private int id;
     private String name;
     private String description;
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime creationDate = LocalDateTime.now();
 
     public Candidate() {

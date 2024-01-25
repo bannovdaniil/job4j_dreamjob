@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import ru.job4j.dreamjob.model.User;
 import ru.job4j.dreamjob.service.UserService;
 
+import java.util.Optional;
+
 /**
  * Работать с Пользователями будем по URI /users/**
  */
@@ -57,7 +59,7 @@ public class UserController {
 
     @PostMapping("/register")
     public String register(@ModelAttribute User user, Model model) {
-        var savedUser = userService.save(user);
+        Optional<User> savedUser = userService.save(user);
         if (savedUser.isEmpty()) {
             model.addAttribute("error", "Пользователь с такой почтой уже существует");
             return "users/register";

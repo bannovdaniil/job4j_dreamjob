@@ -17,7 +17,7 @@ import ru.job4j.dreamjob.service.VacancyService;
 @ThreadSafe
 @RequestMapping("/vacancies") /* Работать с кандидатами будем по URI /vacancies/** */
 public class VacancyController {
-
+    private static final String NOT_FOUND_VACANCY_MESSAGE = "Вакансия с указанным идентификатором не найдена";
     private final VacancyService vacancyService;
     private final CityService cityService;
 
@@ -26,8 +26,8 @@ public class VacancyController {
         this.cityService = cityService;
     }
 
-    private static String sendNotFoundError(Model model) {
-        model.addAttribute("message", "Вакансия с указанным идентификатором не найдена");
+    private static String sendNotFoundError(Model model, String message) {
+        model.addAttribute("message", message);
         return "errors/404";
     }
 
@@ -49,8 +49,7 @@ public class VacancyController {
             vacancyService.save(vacancy, new FileDto(file.getOriginalFilename(), file.getBytes()));
             return "redirect:/vacancies";
         } catch (Exception exception) {
-            model.addAttribute("message", exception.getMessage());
-            return "errors/404";
+            return sendNotFoundError(model, exception.getMessage());
         }
     }
 
@@ -58,7 +57,7 @@ public class VacancyController {
     public String getById(Model model, @PathVariable int id) {
         var vacancyOptional = vacancyService.findById(id);
         if (vacancyOptional.isEmpty()) {
-            return sendNotFoundError(model);
+            return sendNotFoundError(model, NOT_FOUND_VACANCY_MESSAGE);
         }
         model.addAttribute("cities", cityService.findAll());
         model.addAttribute("vacancy", vacancyOptional.get());
@@ -70,13 +69,11 @@ public class VacancyController {
         try {
             var isUpdated = vacancyService.update(vacancy, new FileDto(file.getOriginalFilename(), file.getBytes()));
             if (!isUpdated) {
-                model.addAttribute("message", "Вакансия с указанным идентификатором не найдена");
-                return "errors/404";
+                return sendNotFoundError(model, NOT_FOUND_VACANCY_MESSAGE);
             }
             return "redirect:/vacancies";
         } catch (Exception exception) {
-            model.addAttribute("message", exception.getMessage());
-            return "errors/404";
+            return sendNotFoundError(model, exception.getMessage());
         }
     }
 
@@ -84,7 +81,7 @@ public class VacancyController {
     public String delete(Model model, @PathVariable int id) {
         boolean isDeleted = vacancyService.deleteById(id);
         if (!isDeleted) {
-            return sendNotFoundError(model);
+            return sendNotFoundError(model, NOT_FOUND_VACANCY_MESSAGE);
         }
         return "redirect:/vacancies";
     }

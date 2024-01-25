@@ -14,6 +14,7 @@ import ru.job4j.dreamjob.service.CandidateService;
 @ThreadSafe
 @RequestMapping("/candidates")
 public class CandidateController {
+    private static final String NOT_FOUND_CANDIDATE_MESSAGES = "Кандидат с указанным идентификатором не найден";
 
     private final CandidateService candidateService;
 
@@ -21,8 +22,8 @@ public class CandidateController {
         this.candidateService = candidateService;
     }
 
-    private static String sendNotFoundError(Model model) {
-        model.addAttribute("message", "Кандидат с указанным идентификатором не найден");
+    private static String sendNotFoundError(Model model, String message) {
+        model.addAttribute("message", message);
         return "errors/404";
     }
 
@@ -38,16 +39,20 @@ public class CandidateController {
     }
 
     @PostMapping("/create")
-    public String createPost(@ModelAttribute Candidate candidate) {
-        candidateService.save(candidate);
-        return "redirect:/candidates";
+    public String createPost(@ModelAttribute Candidate candidate, Model model) {
+        try {
+            candidateService.save(candidate);
+            return "redirect:/candidates";
+        } catch (Exception exception) {
+            return sendNotFoundError(model, exception.getMessage());
+        }
     }
 
     @GetMapping("/{id}")
     public String getById(Model model, @PathVariable int id) {
         var candidateOptional = candidateService.findById(id);
         if (candidateOptional.isEmpty()) {
-            return sendNotFoundError(model);
+            return sendNotFoundError(model, NOT_FOUND_CANDIDATE_MESSAGES);
         }
         model.addAttribute("candidate", candidateOptional.get());
         return "candidates/one";
@@ -57,7 +62,7 @@ public class CandidateController {
     public String update(@ModelAttribute Candidate candidate, Model model) {
         boolean isUpdated = candidateService.update(candidate);
         if (!isUpdated) {
-            return sendNotFoundError(model);
+            return sendNotFoundError(model, NOT_FOUND_CANDIDATE_MESSAGES);
         }
         return "redirect:/candidates";
     }
@@ -66,7 +71,7 @@ public class CandidateController {
     public String delete(Model model, @PathVariable int id) {
         boolean isDeleted = candidateService.deleteById(id);
         if (!isDeleted) {
-            return sendNotFoundError(model);
+            return sendNotFoundError(model, NOT_FOUND_CANDIDATE_MESSAGES);
         }
         return "redirect:/candidates";
     }
